@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 
 def clean_df(df: pd.DataFrame) -> pd.DataFrame:
@@ -20,11 +21,26 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
     df['catalogusprijs'] = df['catalogusprijs'].astype(float)
 
     # lege waarden
-
+    df['catalogusprijs'] = np.where(np.isnan(df['catalogusprijs']), # evaluatie/vergelijking
+                                     0,                     # als True de uitkomst is --> Vervang met 
+                                     df['catalogusprijs'] )  # als False de uitkomst is --> Behoud originele waarde
+      
     
-    # filters
+    # filters, only cars with a price higher than 0
+    #exclude_colors = ['N.v.t.', 'Niet geregistreerd']
+    #df_filtered = df.query("catalogusprijs > 0 \
+    #                        & aantal_cilinders == 4 \
+    #                        & eerste_kleur != @exclude_colors")
+    df_filtered = df.query("catalogusprijs > 0")
 
-    pass
+    # calculated column aanmaken
+    df_filtered['prijs_per_cilinder'] = df_filtered['catalogusprijs'] /  df_filtered['aantal_cilinders']
+
+    # sorteren van een dataframe
+    df_filtered.sort_values(by="prijs_per_cilinder", ascending=False)
+    
+
+    return df_filtered
 
 
 '''
@@ -35,4 +51,7 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
 # Kolommen selecteren in een DataFrame
 df['kolom_naam']
 
+# Beschrijving
+* df['aantal_cilinders'].unique()
+* df['aantal_cilinders'].value_counts()
 '''
