@@ -15,5 +15,24 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
     
     '''
     
+    # Convert to the right data types
+    df['aantal_cilinders'] = df['aantal_cilinders'].astype(int)
+    df['catalogusprijs'] = df['catalogusprijs'].astype(float)
+
+    # lege waarden
+
     
+    # filters
+
     pass
+
+
+'''
+
+# Overzicht van DataFrame:
+* df.info() --> Technische informatie over de DataFrame
+
+# Kolommen selecteren in een DataFrame
+df['kolom_naam']
+
+'''
