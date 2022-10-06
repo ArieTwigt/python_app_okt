@@ -33,3 +33,10 @@ def export_brand_to_csv(df: pd.DataFrame, brand: str=None, data_folder="data") -
     print(f"Exported to csv")
 
     pass
+
+
+# Exp. list comprehensions
+# * names_list = ['arie', 'james', 'lara']
+# * [x.upper() for x in names_list]
+# * [x.upper() for x in names_list if x[0].lower() == 'a']
+# * [x.upper() if x[0] == 'a' else x.replace('a', 'O') for x in names_list]
