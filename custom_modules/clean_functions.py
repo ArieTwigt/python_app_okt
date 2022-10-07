@@ -34,11 +34,6 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
     #
     df['aantal_cilinders'] = df['aantal_cilinders'].astype(int)
 
-    # filters, only cars with a price higher than 0
-    #exclude_colors = ['N.v.t.', 'Niet geregistreerd']
-    #df_filtered = df.query("catalogusprijs > 0 \
-    #                        & aantal_cilinders == 4 \
-    #                        & eerste_kleur != @exclude_colors")
     df_filtered = df.query("catalogusprijs > 0")
 
     # calculated column aanmaken
@@ -62,4 +57,10 @@ df['kolom_naam']
 # Beschrijving
 * df['aantal_cilinders'].unique()
 * df['aantal_cilinders'].value_counts()
+
+# filters, only cars with a price higher than 0
+exclude_colors = ['N.v.t.', 'Niet geregistreerd']
+df_filtered = df.query("catalogusprijs > 0 \
+                        & aantal_cilinders == 4 \
+                        & eerste_kleur != @exclude_colors")
 '''
