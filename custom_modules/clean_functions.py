@@ -15,17 +15,25 @@ def clean_df(df: pd.DataFrame) -> pd.DataFrame:
     * cleaned data frame
     
     '''
-    
+
     # Convert to the right data types
-    df['aantal_cilinders'] = df['aantal_cilinders'].astype(int)
+    df['aantal_cilinders'] = df['aantal_cilinders'].astype(float)
     df['catalogusprijs'] = df['catalogusprijs'].astype(float)
 
     # lege waarden
+    df['aantal_cilinders'] = df['aantal_cilinders'].fillna(0)
+
+    df['aantal_cilinders'] = np.where(np.isnan(df['aantal_cilinders']), # evaluatie/vergelijking
+                                     float(0.0),                     # als True de uitkomst is --> Vervang met 
+                                     df['aantal_cilinders'] )  # als False de uitkomst is --> Behoud originele waarde
+      
     df['catalogusprijs'] = np.where(np.isnan(df['catalogusprijs']), # evaluatie/vergelijking
-                                     0,                     # als True de uitkomst is --> Vervang met 
+                                     float(0.0),                     # als True de uitkomst is --> Vervang met 
                                      df['catalogusprijs'] )  # als False de uitkomst is --> Behoud originele waarde
       
-    
+    #
+    df['aantal_cilinders'] = df['aantal_cilinders'].astype(int)
+
     # filters, only cars with a price higher than 0
     #exclude_colors = ['N.v.t.', 'Niet geregistreerd']
     #df_filtered = df.query("catalogusprijs > 0 \
