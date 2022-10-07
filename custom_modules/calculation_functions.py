@@ -1,5 +1,6 @@
 import math
 from typing import Union
+from custom_modules.my_decorators import inflation_adjusted, print_interest
 
 
 def calc_circle(diameter: Union[float, int], double_up:int= 1, rounding: int=3) -> Union[float, int]:
@@ -26,3 +27,16 @@ def calc_circle(diameter: Union[float, int], double_up:int= 1, rounding: int=3) 
     size_rounded = round(size, rounding) * double_up
     
     return size_rounded
+
+
+# define the function for calculating the interest
+def calc_interest(amount, rate, years):
+    result = amount * (1 + rate) ** years
+    return result
+
+
+@print_interest
+@inflation_adjusted
+def calc_interest_inflation(amount, rate, years):
+    result = amount * (1 + rate) ** years
+    return result
