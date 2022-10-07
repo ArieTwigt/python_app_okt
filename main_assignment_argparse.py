@@ -1,5 +1,5 @@
-from api_functions.import_functions import get_car_by_license_plate, get_cars_by_brand
-from api_functions.export_functions import export_df, export_df_license, export_to_db
+from custom_modules.import_functions import import_cars_by_brand
+from custom_modules.export_functions import export_brand_to_csv, export_to_db
 import argparse
 
 # define the argument parser
@@ -51,19 +51,19 @@ if __name__ == '__main__':
         selected_color = args.color
         
         if selected_color == None:
-            cars_df = get_cars_by_brand(selected_brand)
+            cars_df = import_cars_by_brand(selected_brand)
         else:
-            cars_df = get_cars_by_brand(selected_brand, color=selected_color)
+            cars_df = import_cars_by_brand  (selected_brand, color=selected_color)
     else:
         selected_plate = args.license
-        cars_df = get_car_by_license_plate(selected_plate)
+        #cars_df = get_car_by_license_plate(selected_plate)
  
     # options for exporting
     export_type = args.export
 
     if export_type == 'csv':
         if import_by == 'brand':
-            export_df(cars_df, selected_brand)
+            export_brand_to_csv(cars_df, selected_brand)
         else:
             export_df_license(cars_df, selected_plate)
     elif export_type == 'db':
